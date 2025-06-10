@@ -1,0 +1,3 @@
+/tmp/COMP5421/cmake-build-x86-debug/CMakeFiles/rebuild_cache.dir
+/tmp/COMP5421/cmake-build-x86-debug/CMakeFiles/edit_cache.dir
+/tmp/COMP5421/cmake-build-x86-debug/CMakeFiles/COMP5421_Assignment1.dir
