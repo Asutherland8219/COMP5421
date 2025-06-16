@@ -1,6 +1,5 @@
 //
 // Created by Alex Sutherland on 2025-05-19.
-// Assignment 2 - Replace Token with std::string and IntList with std::vector<int>
 //
 
 #ifndef INDEXED_TOKEN_H
@@ -20,7 +19,7 @@
 class IndexedToken {
 private:
     std::string token;           // The token as std::string (replaces Token class)
-    std::vector<int> intlist;      // The list of line numbers as std::vector<int> (replaces IntList class)
+    std::vector<int> intlist;    // The list of line numbers as std::vector<int> (replaces IntList class)
 
 public:
     // Parameterized constructors
@@ -42,7 +41,7 @@ public:
     // Destructor (default - STL containers automatically manage memory via RAII)
     ~IndexedToken() = default;
 
-    // Append a line number to the lines vector
+    // Append a line number to the intlist vector
     void appendLineNumber(int lineNumber);
 
     // Getters
