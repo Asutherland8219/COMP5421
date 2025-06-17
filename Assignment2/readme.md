@@ -1,14 +1,27 @@
-Assignment 1 Readme
+Assignment 2 Readme
 
-I did all of my development on this assignment using Clion. Because I wasn't sure the requirements for the demo, I opted to use a docker config.
-I am using an ARM based mac, so I used a dockerfile to create a docker image of an X86 that I can use to mimic a build.
+Similar to Assignment 1, development was done using Clion. I began by copying the original code from Assignment 1 and then editing as needed.
+Before making the changes in the requirements, I fixed the issue I was havingaround alpha numeric characters. 
+This was fixed by adding the following code to the clean up helper function:
+```
+    if (!isalpha(word[0])) {
+        std::string result = word;
+        // Remove only trailing punctuation
+        while (!result.empty() && !isalnum(result.back()) && result.back() != '\'') {
+            result.pop_back();
+        }
+        return result;
+    }
+ ```
+  This new function uses a copy function of the word then looks to either remove trailing punctuation (ie. the case of !!! or ,)
+as well as looking at the first character to see if it is an alpha character.
 
-With this, I linked the docker CMAKE to this assignment and ran the assignment using the build, run and debug functionality (simmilar to VScode)
+Following this, the requirements outlined in the assignment were implemented. This includes the following:
+- Token replaced with std::string
+- IntList replaced with std::vector<int>
+- DLList replaced with std::list<IndexedToken>
 
-I included the docker file if you were interested. But below are the commands used to build and run from command line.
-
-For brevity, and because I don't know if we are allowed or not, I used a CMake and a Make file to handle this.
-
+These changes are done to follow the RAII principle. There is also automatic using STL containers and removal of raw pointers in favor of iterators.
 ```
 cmake ..
 make

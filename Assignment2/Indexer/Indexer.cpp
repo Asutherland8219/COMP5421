@@ -13,6 +13,7 @@
 // Helper function to determine which section (0-26) a character belongs to
 int getSectionIndex(char c) {
     if (isalpha(c)) {
+        // normalize to lower case
         return tolower(c) - 'a';  // 'a' or 'A' -> 0, 'b' or 'B' -> 1, etc.
     }
     return Indexer::NUM_SECTIONS - 1;  // Non-alphabetic characters go to section 26
@@ -31,21 +32,19 @@ void Indexer::processToken(const char* text, int lineNumber) {
     std::list<IndexedToken>& targetSection = index[sectionIndex];
 
     // Use iterators to search for existing token in the sorted list
-    auto it = targetSection.begin();
-    while (it != targetSection.end() && it->compare(text) < 0) {
-        ++it;
+    auto x = targetSection.begin();
+    while (x != targetSection.end() && x->compare(text) < 0) {
+        ++x;
     }
 
     // Check if token already exists at this position
-    if (it != targetSection.end() && it->compare(text) == 0) {
+    if (x != targetSection.end() && x ->compare(text) == 0) {
         // Token exists; add this line number to existing token
-        // Note: We need to modify the existing token, but iterators point to const objects
-        // We'll need to use a non-const approach
-        const_cast<IndexedToken&>(*it).appendLineNumber(lineNumber);
+        const_cast<IndexedToken&>(*x).appendLineNumber(lineNumber);
     } else {
         // Token doesn't exist; create new IndexedToken and insert at sorted position
         IndexedToken newToken(text, lineNumber);
-        targetSection.insert(it, newToken);
+        targetSection.insert(x, newToken);
     }
 }
 
@@ -95,16 +94,27 @@ void Indexer::processTextFile(const std::string& filename) {
               << " lines, " << totalTokens << " tokens processed)." << std::endl;
 }
 
-// Helper method to clean tokens
 std::string Indexer::cleanToken(const std::string& word) {
-    std::string result;
+    if (word.empty()) return word;
 
+    // If the first character is non-alphabetic, keep the token as-is
+    // (only remove trailing punctuation)
+    if (!isalpha(word[0])) {
+        std::string result = word;
+        // Remove only trailing punctuation
+        while (!result.empty() && !isalnum(result.back()) && result.back() != '\'') {
+            result.pop_back();
+        }
+        return result;
+    }
+
+    // For regular tokens
+    std::string result;
     for (char c : word) {
-        if (isalnum(c) || c == '\'') { // Keep alphanumeric and apostrophes
+        if (isalnum(c) || c == '\'') {
             result += c;
         }
     }
-
     return result;
 }
 

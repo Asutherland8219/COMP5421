@@ -14,43 +14,39 @@
 
 
 /**
- * Indexer Class
- * Purpose: Manages a collection of 27 sections (A-Z plus non-alphabetic)
+ * @class Indexer
+ * @brief Manages a collection of 27 sections (A-Z plus non-alphabetic)
  * where each section contains a sorted list of IndexedToken objects.
- *
- * Uses modern C++ with STL containers:
- * - std::array<std::list<IndexedToken>, 27> for the 27 sections
- * - std::list<IndexedToken> for each section (replaces DLList)
- * - Automatic memory management via RAII
+
  */
 class Indexer {
 public:
     static const int NUM_SECTIONS = 27;  // 26 letters + 1 for non-alphabetic
 
 private:
-    std::array<std::list<IndexedToken>, NUM_SECTIONS> index;  // 27 sections: A-Z + non-alphabetic
+    std::array<std::list<IndexedToken>, NUM_SECTIONS> index;
     std::string currentFilename;
 
-    // Helper method to clean tokens (remove unwanted punctuation)
+    // Helper method to clean tokens (remove unwanted punctuation) and handle Hashtag values (non alphabetic)
     std::string cleanToken(const std::string& word);
 
 public:
     // Default constructor
     Indexer();
 
-    // Copy constructor (default - STL containers handle deep copying)
+    // Copy constructor
     Indexer(const Indexer& other) = default;
 
-    // Move constructor (default - STL containers provide efficient move semantics)
+    // Move constructor
     Indexer(Indexer&& other) noexcept = default;
 
-    // Copy assignment operator (default - STL containers handle deep copying)
+    // Copy assignment operator
     Indexer& operator=(const Indexer& other) = default;
 
-    // Move assignment operator (default - STL containers provide efficient move semantics)
+    // Move assignment operator
     Indexer& operator=(Indexer&& other) noexcept = default;
 
-    // Destructor (default - STL containers automatically manage memory via RAII)
+    // Destructor
     ~Indexer() = default;
 
     // Process a single token and add it to the appropriate section

@@ -11,10 +11,8 @@
 
 /**
  * IndexedToken Class
- * Purpose: Aggregates a token (as std::string) and its list of line numbers (as std::vector<int>),
+ * @brief Aggregates a token (as std::string) and its list of line numbers (as std::vector<int>),
  * representing a complete index entry for the token.
- *
- * Uses modern C++ with STL containers for automatic memory management (RAII).
  */
 class IndexedToken {
 private:
@@ -25,20 +23,21 @@ public:
     // Parameterized constructors
     IndexedToken(const char* text, int lineNumber);
     IndexedToken(const std::string& tokenText, int lineNumber);
+    // Rule of Five functions :
 
-    // Copy constructor (default - STL containers handle deep copying automatically)
+    // Copy constructor
     IndexedToken(const IndexedToken& other) = default;
 
-    // Move constructor (default - STL containers provide efficient move semantics)
+    // Move constructor
     IndexedToken(IndexedToken&& other) noexcept = default;
 
-    // Copy assignment operator (default - STL containers handle deep copying automatically)
+    // Copy assignment operator
     IndexedToken& operator=(const IndexedToken& other) = default;
 
-    // Move assignment operator (default - STL containers provide efficient move semantics)
+    // Move assignment operator
     IndexedToken& operator=(IndexedToken&& other) noexcept = default;
 
-    // Destructor (default - STL containers automatically manage memory via RAII)
+    // Destructor
     ~IndexedToken() = default;
 
     // Append a line number to the intlist vector
@@ -58,7 +57,7 @@ public:
      */
     const char* c_str() const;
 
-    // Print function - writes token followed by lines to output stream
+    // Print function
     void print(std::ostream& os = std::cout) const;
 
     // Compare functions

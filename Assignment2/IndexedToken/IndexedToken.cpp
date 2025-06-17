@@ -7,8 +7,8 @@
 
 // Parameterized constructor from const char*
 IndexedToken::IndexedToken(const char* text, int lineNumber)
-    : token(text) {  // std::string constructor handles memory management
-    intlist.push_back(lineNumber);  // std::vector handles dynamic memory
+    : token(text) {  // std::string
+    intlist.push_back(lineNumber);  // std::vector
 }
 
 // Parameterized constructor from std::string
@@ -41,11 +41,11 @@ const char* IndexedToken::c_str() const {
     return token.c_str();
 }
 
-// Print function - writes token followed by intlist to output stream
+// Print function
 void IndexedToken::print(std::ostream& os) const {
     os << token << " ";
 
-    // Use iterators to traverse the vector (as required by assignment)
+    // Use iterators to traverse the vector
     for (auto it = intlist.cbegin(); it != intlist.cend(); ++it) {
         if (it != intlist.cbegin()) {
             os << " ";
@@ -56,7 +56,7 @@ void IndexedToken::print(std::ostream& os) const {
 
 // Compare functions
 int IndexedToken::compare(const char* other) const {
-    return token.compare(other);  // std::string provides built-in comparison
+    return token.compare(other);  // std::string comparison
 }
 
 int IndexedToken::compare(const std::string& other) const {
